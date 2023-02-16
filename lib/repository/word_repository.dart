@@ -10,4 +10,8 @@ class WordRepository {
   List<Word> getRecentlySubmittedWords({int? limit}) {
     return _words.toList().reversed.take(limit ?? _words.length).toList();
   }
+
+  bool isWordSubmitted(Word word) {
+    return _words.contains(word);
+  }
 }

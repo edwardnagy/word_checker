@@ -86,4 +86,37 @@ void main() {
       },
     );
   });
+
+  group('isWordSubmitted', () {
+    test(
+      'GIVEN no words have been submitted '
+      'WHEN isWordSubmitted is called with a word '
+      'THEN false is returned',
+      () {
+        expect(sut.isWordSubmitted(const Word('test')), false);
+      },
+    );
+
+    test(
+      'GIVEN a word has been submitted '
+      'WHEN isWordSubmitted is called with a word with the same text '
+      'THEN true is returned',
+      () {
+        sut.saveWord(const Word('test'));
+
+        expect(sut.isWordSubmitted(const Word('test')), true);
+      },
+    );
+
+    test(
+      'GIVEN a word has been submitted '
+      'WHEN isWordSubmitted is called with a word with different text '
+      'THEN false is returned',
+      () {
+        sut.saveWord(const Word('test'));
+
+        expect(sut.isWordSubmitted(const Word('test1')), false);
+      },
+    );
+  });
 }
