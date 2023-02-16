@@ -1,7 +1,13 @@
 import 'package:word_checker/model/word.dart';
 
-abstract class WordRepository {
-  void saveWord(Word word);
+class WordRepository {
+  final Set<Word> _words = {};
 
-  List<Word> getRecentlySubmittedWords({int? limit});
+  void saveWord(Word word) {
+    _words.add(word);
+  }
+
+  List<Word> getRecentlySubmittedWords({int? limit}) {
+    return _words.toList().reversed.take(limit ?? _words.length).toList();
+  }
 }
