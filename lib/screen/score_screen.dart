@@ -61,8 +61,14 @@ class ScoreScreen extends StatelessWidget {
                 final score = word.length;
 
                 return ListTile(
-                  title: Text('word$index'),
-                  trailing: Text('$score points'),
+                  title: Text(
+                    'word$index',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  trailing: Text(
+                    '$score points',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 );
               },
             ),
