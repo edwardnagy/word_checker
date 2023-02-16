@@ -5,12 +5,12 @@ void main() {
   group('score', () {
     test(
       'GIVEN a word is created '
-      'WHEN the score is accessed '
+      'WHEN the points are accessed '
       'THEN the length of the word is returned',
       () {
         const sut = Word('test');
 
-        expect(sut.score, 4);
+        expect(sut.points, 4);
       },
     );
   });

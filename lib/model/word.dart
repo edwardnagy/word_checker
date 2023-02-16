@@ -6,7 +6,7 @@ class Word {
 
   const Word(this.text);
 
-  int get score => text.length;
+  int get points => text.length;
 
   @override
   String toString() => 'Word(text: $text)';
