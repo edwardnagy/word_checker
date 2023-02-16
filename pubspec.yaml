@@ -20,10 +20,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
-  build_runner: ^2.3.3
-  freezed: ^2.3.2
+  build_runner: ^2.3.0
+  freezed: ^2.2.0
+  bloc_test: ^9.1.1
+  mocktail: ^0.3.0
 
 flutter:
   uses-material-design: true
