@@ -15,7 +15,7 @@ void main() {
       'WHEN getRecentlySubmittedWords is called '
       'THEN an empty list is returned',
       () {
-        expect(sut.getRecentlySubmittedWords(), []);
+        expect(sut.getLatestSubmittedWords(), []);
       },
     );
 
@@ -27,7 +27,7 @@ void main() {
         const word = Word('test');
         sut.saveWord(word);
 
-        expect(sut.getRecentlySubmittedWords(), [word]);
+        expect(sut.getLatestSubmittedWords(), [word]);
       },
     );
 
@@ -45,7 +45,7 @@ void main() {
           ..saveWord(word2)
           ..saveWord(word3);
 
-        expect(sut.getRecentlySubmittedWords(), [word3, word2, word1]);
+        expect(sut.getLatestSubmittedWords(), [word3, word2, word1]);
       },
     );
 
@@ -55,15 +55,15 @@ void main() {
       'THEN a list containing those words in the reverse order they were '
       'submitted up to the limit is returned',
       () {
-        const word1 = Word('test1');
-        const word2 = Word('test2');
-        const word3 = Word('test3');
+        const word1 = Word('something');
+        const word2 = Word('apple');
+        const word3 = Word('test');
         sut
           ..saveWord(word1)
           ..saveWord(word2)
           ..saveWord(word3);
 
-        expect(sut.getRecentlySubmittedWords(limit: 2), [word3, word2]);
+        expect(sut.getLatestSubmittedWords(limit: 2), [word3, word2]);
       },
     );
 
@@ -82,7 +82,7 @@ void main() {
           ..saveWord(word2)
           ..saveWord(word3);
 
-        expect(sut.getRecentlySubmittedWords(limit: 4), [word3, word2, word1]);
+        expect(sut.getLatestSubmittedWords(limit: 4), [word3, word2, word1]);
       },
     );
   });
