@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:word_checker/screen/score_screen.dart';
 
 class InputScreen extends StatelessWidget {
   const InputScreen({super.key});
@@ -11,7 +12,19 @@ class InputScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('First Screen'),
+        title: const Text('First screen'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.insights),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const ScoreScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -22,7 +35,7 @@ class InputScreen extends StatelessWidget {
               FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
             ],
             decoration: const InputDecoration(
-              labelText: 'Enter your word',
+              hintText: 'Enter a word',
             ),
           ),
           const SizedBox(height: 16),
@@ -48,6 +61,7 @@ class InputScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ],
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
     );
