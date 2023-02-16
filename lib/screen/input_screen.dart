@@ -32,27 +32,29 @@ class InputScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          TextField(
-            inputFormatters: [
-              // Only allow letters from the English alphabet.
-              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
-            ],
-            decoration: const InputDecoration(
-              hintText: 'Enter a word',
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              inputFormatters: [
+                // Only allow letters from the English alphabet.
+                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+              ],
+              decoration: const InputDecoration(
+                hintText: 'Enter a word',
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          _feedbackText(context),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Submit'),
-          ),
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
-        ],
+            const SizedBox(height: 8),
+            _feedbackText(context),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
       ),
     );
   }
