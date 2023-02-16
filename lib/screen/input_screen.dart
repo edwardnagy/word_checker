@@ -5,11 +5,17 @@ import 'package:word_checker/screen/score_screen.dart';
 class InputScreen extends StatelessWidget {
   const InputScreen({super.key});
 
+  Widget _feedbackText(BuildContext context) {
+    return Text(
+      'Recently submitted: word1, word2, word3, word4, word5',
+      style: Theme.of(context).textTheme.bodySmall,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    const words = ['word1', 'word2', 'word3'];
-    const highlightedWord = 'word2';
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('First screen'),
@@ -38,29 +44,13 @@ class InputScreen extends StatelessWidget {
               hintText: 'Enter a word',
             ),
           ),
+          const SizedBox(height: 8),
+          _feedbackText(context),
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {},
             child: const Text('Submit'),
           ),
-          const SizedBox(height: 24),
-          Text(
-            'Latest submitted words:',
-            style: Theme.of(context).textTheme.titleSmall,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          for (final word in words) ...[
-            Text(
-              word,
-              style: TextStyle(
-                fontWeight: word == highlightedWord
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
