@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:word_checker/bloc/score_screen/score_screen_bloc.dart';
+import 'package:word_checker/model/word.dart';
+import 'package:word_checker/service_locator.dart';
 
-class ScoreScreen extends StatelessWidget {
+class ScoreScreen extends StatefulWidget {
   const ScoreScreen({super.key});
+
+  @override
+  State<ScoreScreen> createState() => _ScoreScreenState();
+}
+
+class _ScoreScreenState extends State<ScoreScreen> {
+  final _bloc = ScoreScreenBloc(ServiceLocator.getWordRepository());
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
 
   Widget _scoreCard(BuildContext context) {
     return Card(
@@ -16,10 +32,19 @@ class ScoreScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
-            Text(
-              '0',
-              style: Theme.of(context).textTheme.headlineLarge,
-              textAlign: TextAlign.center,
+            StreamBuilder<int?>(
+              stream: _bloc.stream.map(
+                (state) => state.mapOrNull(content: (state) => state.score),
+              ),
+              builder: (context, snapshot) {
+                final score = snapshot.data ?? 0;
+
+                return Text(
+                  score.toString(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                  textAlign: TextAlign.center,
+                );
+              },
             ),
           ],
         ),
@@ -46,32 +71,40 @@ class ScoreScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Accepted words:',
-                style: Theme.of(context).textTheme.titleMedium,
+                'Submitted words:',
+                style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.start,
               ),
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: 20,
-              (context, index) {
-                final word = 'word$index';
-                final score = word.length;
-
-                return ListTile(
-                  title: Text(
-                    'word$index',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  trailing: Text(
-                    '$score points',
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                );
-              },
+          StreamBuilder<List<Word>?>(
+            stream: _bloc.stream.map(
+              (state) => state.mapOrNull(content: (state) => state.words),
             ),
+            builder: (context, snapshot) {
+              final words = snapshot.data ?? [];
+
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: words.length,
+                  (context, index) {
+                    final word = words[index];
+
+                    return ListTile(
+                      title: Text(
+                        word.text,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      trailing: Text(
+                        '${word.points} points',
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
           ),
           SliverToBoxAdapter(
             child: SizedBox(height: MediaQuery.of(context).padding.bottom),
