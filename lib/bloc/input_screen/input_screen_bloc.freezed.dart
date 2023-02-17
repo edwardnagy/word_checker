@@ -20,18 +20,21 @@ mixin _$InputScreenEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String text) inputTextChanged,
     required TResult Function() inputTextSubmitted,
+    required TResult Function(List<String> wordTexts) wordTextsLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String text)? inputTextChanged,
     TResult? Function()? inputTextSubmitted,
+    TResult? Function(List<String> wordTexts)? wordTextsLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String text)? inputTextChanged,
     TResult Function()? inputTextSubmitted,
+    TResult Function(List<String> wordTexts)? wordTextsLoaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,22 @@ mixin _$InputScreenEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_InputTextChanged value) inputTextChanged,
     required TResult Function(_InputTextSubmitted value) inputTextSubmitted,
+    required TResult Function(_RecentlySubmittedWordsLoaded value)
+        wordTextsLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InputTextChanged value)? inputTextChanged,
     TResult? Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult? Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InputTextChanged value)? inputTextChanged,
     TResult Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +147,7 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String text) inputTextChanged,
     required TResult Function() inputTextSubmitted,
+    required TResult Function(List<String> wordTexts) wordTextsLoaded,
   }) {
     return inputTextChanged(text);
   }
@@ -149,6 +157,7 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String text)? inputTextChanged,
     TResult? Function()? inputTextSubmitted,
+    TResult? Function(List<String> wordTexts)? wordTextsLoaded,
   }) {
     return inputTextChanged?.call(text);
   }
@@ -158,6 +167,7 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String text)? inputTextChanged,
     TResult Function()? inputTextSubmitted,
+    TResult Function(List<String> wordTexts)? wordTextsLoaded,
     required TResult orElse(),
   }) {
     if (inputTextChanged != null) {
@@ -171,6 +181,8 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_InputTextChanged value) inputTextChanged,
     required TResult Function(_InputTextSubmitted value) inputTextSubmitted,
+    required TResult Function(_RecentlySubmittedWordsLoaded value)
+        wordTextsLoaded,
   }) {
     return inputTextChanged(this);
   }
@@ -180,6 +192,7 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InputTextChanged value)? inputTextChanged,
     TResult? Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult? Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
   }) {
     return inputTextChanged?.call(this);
   }
@@ -189,6 +202,7 @@ class _$_InputTextChanged implements _InputTextChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InputTextChanged value)? inputTextChanged,
     TResult Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
     required TResult orElse(),
   }) {
     if (inputTextChanged != null) {
@@ -247,6 +261,7 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult when<TResult extends Object?>({
     required TResult Function(String text) inputTextChanged,
     required TResult Function() inputTextSubmitted,
+    required TResult Function(List<String> wordTexts) wordTextsLoaded,
   }) {
     return inputTextSubmitted();
   }
@@ -256,6 +271,7 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String text)? inputTextChanged,
     TResult? Function()? inputTextSubmitted,
+    TResult? Function(List<String> wordTexts)? wordTextsLoaded,
   }) {
     return inputTextSubmitted?.call();
   }
@@ -265,6 +281,7 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String text)? inputTextChanged,
     TResult Function()? inputTextSubmitted,
+    TResult Function(List<String> wordTexts)? wordTextsLoaded,
     required TResult orElse(),
   }) {
     if (inputTextSubmitted != null) {
@@ -278,6 +295,8 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult map<TResult extends Object?>({
     required TResult Function(_InputTextChanged value) inputTextChanged,
     required TResult Function(_InputTextSubmitted value) inputTextSubmitted,
+    required TResult Function(_RecentlySubmittedWordsLoaded value)
+        wordTextsLoaded,
   }) {
     return inputTextSubmitted(this);
   }
@@ -287,6 +306,7 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InputTextChanged value)? inputTextChanged,
     TResult? Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult? Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
   }) {
     return inputTextSubmitted?.call(this);
   }
@@ -296,6 +316,7 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InputTextChanged value)? inputTextChanged,
     TResult Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
     required TResult orElse(),
   }) {
     if (inputTextSubmitted != null) {
@@ -307,6 +328,158 @@ class _$_InputTextSubmitted implements _InputTextSubmitted {
 
 abstract class _InputTextSubmitted implements InputScreenEvent {
   const factory _InputTextSubmitted() = _$_InputTextSubmitted;
+}
+
+/// @nodoc
+abstract class _$$_RecentlySubmittedWordsLoadedCopyWith<$Res> {
+  factory _$$_RecentlySubmittedWordsLoadedCopyWith(
+          _$_RecentlySubmittedWordsLoaded value,
+          $Res Function(_$_RecentlySubmittedWordsLoaded) then) =
+      __$$_RecentlySubmittedWordsLoadedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> wordTexts});
+}
+
+/// @nodoc
+class __$$_RecentlySubmittedWordsLoadedCopyWithImpl<$Res>
+    extends _$InputScreenEventCopyWithImpl<$Res,
+        _$_RecentlySubmittedWordsLoaded>
+    implements _$$_RecentlySubmittedWordsLoadedCopyWith<$Res> {
+  __$$_RecentlySubmittedWordsLoadedCopyWithImpl(
+      _$_RecentlySubmittedWordsLoaded _value,
+      $Res Function(_$_RecentlySubmittedWordsLoaded) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? wordTexts = null,
+  }) {
+    return _then(_$_RecentlySubmittedWordsLoaded(
+      null == wordTexts
+          ? _value._wordTexts
+          : wordTexts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RecentlySubmittedWordsLoaded implements _RecentlySubmittedWordsLoaded {
+  const _$_RecentlySubmittedWordsLoaded(final List<String> wordTexts)
+      : _wordTexts = wordTexts;
+
+  final List<String> _wordTexts;
+  @override
+  List<String> get wordTexts {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_wordTexts);
+  }
+
+  @override
+  String toString() {
+    return 'InputScreenEvent.wordTextsLoaded(wordTexts: $wordTexts)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RecentlySubmittedWordsLoaded &&
+            const DeepCollectionEquality()
+                .equals(other._wordTexts, _wordTexts));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_wordTexts));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RecentlySubmittedWordsLoadedCopyWith<_$_RecentlySubmittedWordsLoaded>
+      get copyWith => __$$_RecentlySubmittedWordsLoadedCopyWithImpl<
+          _$_RecentlySubmittedWordsLoaded>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String text) inputTextChanged,
+    required TResult Function() inputTextSubmitted,
+    required TResult Function(List<String> wordTexts) wordTextsLoaded,
+  }) {
+    return wordTextsLoaded(wordTexts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String text)? inputTextChanged,
+    TResult? Function()? inputTextSubmitted,
+    TResult? Function(List<String> wordTexts)? wordTextsLoaded,
+  }) {
+    return wordTextsLoaded?.call(wordTexts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String text)? inputTextChanged,
+    TResult Function()? inputTextSubmitted,
+    TResult Function(List<String> wordTexts)? wordTextsLoaded,
+    required TResult orElse(),
+  }) {
+    if (wordTextsLoaded != null) {
+      return wordTextsLoaded(wordTexts);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InputTextChanged value) inputTextChanged,
+    required TResult Function(_InputTextSubmitted value) inputTextSubmitted,
+    required TResult Function(_RecentlySubmittedWordsLoaded value)
+        wordTextsLoaded,
+  }) {
+    return wordTextsLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InputTextChanged value)? inputTextChanged,
+    TResult? Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult? Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
+  }) {
+    return wordTextsLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InputTextChanged value)? inputTextChanged,
+    TResult Function(_InputTextSubmitted value)? inputTextSubmitted,
+    TResult Function(_RecentlySubmittedWordsLoaded value)? wordTextsLoaded,
+    required TResult orElse(),
+  }) {
+    if (wordTextsLoaded != null) {
+      return wordTextsLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RecentlySubmittedWordsLoaded implements InputScreenEvent {
+  const factory _RecentlySubmittedWordsLoaded(final List<String> wordTexts) =
+      _$_RecentlySubmittedWordsLoaded;
+
+  List<String> get wordTexts;
+  @JsonKey(ignore: true)
+  _$$_RecentlySubmittedWordsLoadedCopyWith<_$_RecentlySubmittedWordsLoaded>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

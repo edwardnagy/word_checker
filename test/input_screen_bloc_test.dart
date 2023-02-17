@@ -7,48 +7,44 @@ import 'package:word_checker/model/word.dart';
 import 'mock/mock_word_repository.dart';
 
 void main() {
-  late InputScreenBloc sut;
   late MockWordRepository mockWordRepository;
 
   setUp(() {
     mockWordRepository = MockWordRepository();
-    sut = InputScreenBloc(mockWordRepository);
+    when(() => mockWordRepository.getLatestSubmittedWords(
+          limit: any(named: 'limit'),
+        )).thenReturn([const Word('submittedword')]);
   });
 
   setUpAll(() {
     registerFallbackValue(const Word(''));
   });
 
-  group('initial state', () {
-    test(
-      'GIVEN the bloc is created '
-      'WHEN the state is accessed '
-      'THEN the feedback state is initial and the draft text is empty',
-      () {
-        expect(
-          sut.state,
-          const InputScreenState(
-            feedbackState: FeedbackState.initial(),
-            textState: TextState.draft(text: ''),
-          ),
-        );
-      },
-    );
-  });
+  blocTest<InputScreenBloc, InputScreenState>(
+    'GIVEN the bloc is created '
+    'WHEN the state is accessed '
+    'THEN the latest submitted words are returned and the input text is empty',
+    build: () => InputScreenBloc(mockWordRepository),
+    expect: () => [
+      const InputScreenState(
+        feedbackState: FeedbackState.recentlySubmittedWords(['submittedword']),
+        textState: TextState.draft(text: ''),
+      ),
+    ],
+  );
 
   group('input text changed', () {
     blocTest<InputScreenBloc, InputScreenState>(
-      'GIVEN the feedback does not contain recently submitted words '
+      'GIVEN the feedback does not contain the recently submitted words '
       'WHEN the input text is changed '
       'THEN the feedback is filled with the recently submitted words',
-      build: () {
-        when(() => mockWordRepository.getLatestSubmittedWords(
-              limit: any(named: 'limit'),
-            )).thenReturn([const Word('submittedword')]);
-        return InputScreenBloc(mockWordRepository);
-      },
+      build: () => InputScreenBloc(mockWordRepository),
+      seed: () => const InputScreenState(
+        feedbackState: FeedbackState.invalidWord(),
+      ),
       act: (bloc) =>
           bloc.add(const InputScreenEvent.inputTextChanged('newtext')),
+      skip: 1, // Skip the initial state.
       expect: () => [
         const InputScreenState(
           feedbackState:
@@ -59,7 +55,7 @@ void main() {
     );
 
     blocTest<InputScreenBloc, InputScreenState>(
-      'GIVEN the feedback already contains the recently submitted words '
+      'GIVEN the state already contains the recently submitted words '
       'WHEN the input text is changed '
       'THEN avoid calling the repository to get the recently submitted words',
       build: () => InputScreenBloc(mockWordRepository),
@@ -69,11 +65,11 @@ void main() {
       act: (bloc) =>
           bloc.add(const InputScreenEvent.inputTextChanged('newtext')),
       verify: (_) {
-        verifyNever(
+        verify(
           () => mockWordRepository.getLatestSubmittedWords(
             limit: any(named: 'limit'),
           ),
-        );
+        ).called(1); // Called once in the initial state.
       },
     );
   });
@@ -81,7 +77,7 @@ void main() {
   group('input text submitted', () {
     blocTest<InputScreenBloc, InputScreenState>(
       'GIVEN the input text is empty '
-      'WHEN the submit event is added '
+      'WHEN the submit event occurs '
       'THEN the word is not saved to the repository',
       build: () {
         when(() => mockWordRepository.saveWord(any())).thenAnswer((_) async {});
@@ -97,7 +93,7 @@ void main() {
 
     blocTest<InputScreenBloc, InputScreenState>(
       'GIVEN the input text is not empty and has not been submitted yet '
-      'WHEN the submit event is added '
+      'WHEN the submit event occurs '
       'THEN the feedback is filled with the recently submitted word and the '
       'text state is "cleared"',
       build: () {
@@ -110,12 +106,13 @@ void main() {
         return InputScreenBloc(mockWordRepository);
       },
       seed: () => const InputScreenState(
-        feedbackState: FeedbackState.recentlySubmittedWords([]),
+        feedbackState: FeedbackState.recentlySubmittedWords(['submittedword']),
         textState: TextState.draft(text: 'test'),
       ),
       act: (bloc) {
         bloc.add(const InputScreenEvent.inputTextSubmitted());
       },
+      skip: 1, // Skip the initial state.
       expect: () => [
         const InputScreenState(
           feedbackState: FeedbackState.recentlySubmittedWords(['test']),
@@ -126,8 +123,8 @@ void main() {
 
     blocTest<InputScreenBloc, InputScreenState>(
       'GIVEN the input text was already submitted '
-      'WHEN the submit event is added '
-      'THEN the feedback signals that the word was already submitted',
+      'WHEN the submit event occurs '
+      'THEN the state feedback signals that the word was already submitted',
       build: () {
         when(() => mockWordRepository.isWordSubmitted(const Word('test')))
             .thenAnswer((_) => true);
@@ -139,6 +136,7 @@ void main() {
       act: (bloc) {
         bloc.add(const InputScreenEvent.inputTextSubmitted());
       },
+      skip: 1, // Skip the initial state.
       expect: () => [
         const InputScreenState(
           feedbackState: FeedbackState.wordAlreadySubmitted(),
@@ -149,7 +147,7 @@ void main() {
 
     blocTest<InputScreenBloc, InputScreenState>(
       'GIVEN the input text is longer than "pneumonoultramicroscopicsilicovolcanoconiosis" '
-      'WHEN the submit event is added '
+      'WHEN the submit event occurs '
       'THEN the feedback state is "invalid word"',
       build: () {
         return InputScreenBloc(mockWordRepository);
@@ -162,6 +160,7 @@ void main() {
       act: (bloc) {
         bloc.add(const InputScreenEvent.inputTextSubmitted());
       },
+      skip: 1, // Skip the initial state.
       expect: () => [
         const InputScreenState(
           feedbackState: FeedbackState.invalidWord(),

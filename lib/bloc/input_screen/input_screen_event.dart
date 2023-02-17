@@ -5,4 +5,7 @@ class InputScreenEvent with _$InputScreenEvent {
   const factory InputScreenEvent.inputTextChanged(String text) =
       _InputTextChanged;
   const factory InputScreenEvent.inputTextSubmitted() = _InputTextSubmitted;
+  const factory InputScreenEvent.wordTextsLoaded(
+    List<String> wordTexts,
+  ) = _RecentlySubmittedWordsLoaded;
 }

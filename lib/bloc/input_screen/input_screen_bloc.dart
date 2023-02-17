@@ -18,14 +18,15 @@ class InputScreenBloc extends Bloc<InputScreenEvent, InputScreenState> {
     on<InputScreenEvent>((event, emit) {
       event.when(
         inputTextChanged: (text) {
-          final recentlySubmittedWords = state.feedbackState.maybeMap(
+          final recentlySubmittedWordTexts = state.feedbackState.maybeMap(
             recentlySubmittedWords: (state) => state.words,
             orElse: () => _getRecentlySubmittedWords(),
           );
 
           final newState = state.copyWith(
-            feedbackState:
-                FeedbackState.recentlySubmittedWords(recentlySubmittedWords),
+            feedbackState: FeedbackState.recentlySubmittedWords(
+              recentlySubmittedWordTexts,
+            ),
             textState: TextState.draft(text: text),
           );
 
@@ -62,13 +63,29 @@ class InputScreenBloc extends Bloc<InputScreenEvent, InputScreenState> {
 
           emit(newState);
         },
+        wordTextsLoaded: (wordTexts) {
+          final newState = state.copyWith(
+            feedbackState: FeedbackState.recentlySubmittedWords(wordTexts),
+          );
+
+          emit(newState);
+        },
       );
     });
+
+    _loadRecentlySubmittedWordTexts();
+  }
+
+  void _loadRecentlySubmittedWordTexts() {
+    final words = _getRecentlySubmittedWords();
+    add(InputScreenEvent.wordTextsLoaded(words));
   }
 
   List<String> _getRecentlySubmittedWords() {
+    const wordsLimit = 5;
+
     return _wordRepository
-        .getLatestSubmittedWords(limit: 5)
+        .getLatestSubmittedWords(limit: wordsLimit)
         .map((word) => word.text)
         .toList();
   }
