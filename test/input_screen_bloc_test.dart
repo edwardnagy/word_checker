@@ -3,9 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:word_checker/bloc/input_screen/input_screen_bloc.dart';
 import 'package:word_checker/model/word.dart';
-import 'package:word_checker/repository/word_repository.dart';
 
-class MockWordRepository extends Mock implements WordRepository {}
+import 'mock/mock_word_repository.dart';
 
 void main() {
   late InputScreenBloc sut;
