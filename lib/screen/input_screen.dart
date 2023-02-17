@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:word_checker/bloc/input_screen/input_screen_bloc.dart';
-import 'package:word_checker/repository/word_repository.dart';
 import 'package:word_checker/screen/score_screen.dart';
+import 'package:word_checker/service_locator.dart';
 
 class InputScreen extends StatefulWidget {
   const InputScreen({super.key});
@@ -14,7 +14,7 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
-  final _bloc = InputScreenBloc(WordRepository());
+  final _bloc = InputScreenBloc(ServiceLocator.getWordRepository());
   final _textFieldController = TextEditingController();
 
   StreamSubscription? _textStateSubscription;
